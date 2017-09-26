@@ -31,7 +31,7 @@ pipeline {
     }
     stage('junit5-java9-engine') {
       agent {
-        docker { image ‘openjdk:9’ }
+        docker { image 'openjdk:9' }
       }
       steps {
         sh 'cd junit5-java9-engine && ./gradlew --no-daemon -Dscoops=9 clean build'
