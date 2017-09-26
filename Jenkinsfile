@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-    jdk 'Oracle JDK 8 (latest)' 
+    jdk 'Oracle JDK 8 (latest)'
   }
   stages {
     stage('junit5-gradle-consumer') {
@@ -27,6 +27,16 @@ pipeline {
     stage('junit5-vanilla-maven') {
       steps {
         sh 'cd junit5-vanilla-maven && ./mvnw -B clean verify'
+      }
+    }
+    stage('junit5-java9-engine') {
+      agent {
+        docker {
+          image ‘openjdk:9’
+        }
+      }
+      steps {
+        sh 'cd junit5-java9-engine && ./gradlew --no-daemon -Dscoops=9 clean build'
       }
     }
   }
